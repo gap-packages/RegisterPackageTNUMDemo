@@ -3,8 +3,11 @@
 #
 # Implementations
 #
-InstallGlobalFunction( RegisterPackageTNUMDemo_Example,
-function()
-	Print( "This is a placeholder function, replace it with your own code.\n" );
-end );
+
+InstallMethod(PrintObj
+        , "for a demo project"
+        , [ IsDemoObject ]
+        , function(o)
+    Print("<a demo object>");
+    end );
 

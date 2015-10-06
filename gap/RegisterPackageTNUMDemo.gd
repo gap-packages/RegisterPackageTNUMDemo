@@ -4,6 +4,12 @@
 # Declarations
 #
 
+DeclareCategory( "IsDemoObject", IsObject );
+
 #! @Description
-#!   Insert documentation for you function here
-DeclareGlobalFunction( "RegisterPackageTNUMDemo_Example" );
+#!    Family of DemoObj
+BindGlobal( "DemoObjFamily", NewFamily("DemoObjFamily") );
+
+#! @Description
+#!    Type of DemoObj
+BindGlobal( "TypeDemoObj", NewType(DemoObjFamily, IsDemoObject) );

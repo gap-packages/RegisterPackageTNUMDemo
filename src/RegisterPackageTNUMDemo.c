@@ -4,16 +4,39 @@
 
 #include "src/compiled.h"          /* GAP headers */
 
+Int T_DEMO;
 
-Obj TestCommand(Obj self)
+/* This type is imported from the GAP level, all wrapped objects
+   will have the same type
+ */
+Obj TYPE_DEMO;
+Obj TypeDemoObj(Obj o)
 {
-    return INTOBJ_INT(42);
+    return TYPE_DEMO;
 }
 
-Obj TestCommandWithParams(Obj self, Obj param, Obj param2)
+void MarkDemoObj(Obj o)
+{
+}
+
+void SweepDemoObj(Bag *src, Bag *dst, UInt len)
+{
+}
+
+Obj NewDemoObj(Obj self)
+{
+    Obj o;
+    void *m;
+
+    o = NewBag(T_DEMO, 4096);
+
+    return o;
+}
+
+Obj InfoDemoObj(Obj self, Obj o)
 {
     /* simply return the first parameter */
-    return param;
+    return o;
 }
 
 
@@ -27,8 +50,8 @@ typedef Obj (* GVarFunc)(/*arguments*/);
 
 // Table of functions to export
 static StructGVarFunc GVarFuncs [] = {
-    GVAR_FUNC_TABLE_ENTRY("RegisterPackageTNUMDemo.c", TestCommand, 0, ""),
-    GVAR_FUNC_TABLE_ENTRY("RegisterPackageTNUMDemo.c", TestCommandWithParams, 2, "param, param2"),
+    GVAR_FUNC_TABLE_ENTRY("RegisterPackageTNUMDemo.c", NewDemoObj, 0, ""),
+    GVAR_FUNC_TABLE_ENTRY("RegisterPackageTNUMDemo.c", InfoDemoObj, 1, "demoobj"),
 
 	{ 0 } /* Finish with an empty entry */
 
@@ -39,10 +62,17 @@ static StructGVarFunc GVarFuncs [] = {
 */
 static Int InitKernel( StructInitInfo *module )
 {
-    /* init filters and functions                                          */
+    ImportGVarFromLibrary("TypeDemoObj", &TYPE_DEMO);
+
+    T_DEMO = RegisterPackageTNUM("DemoTNUM", TypeDemoObj);
+
+    InitMarkFuncBags(T_DEMO, MarkDemoObj);
+    InitSweepFuncBags(T_DEMO, SweepDemoObj);
+
+    /* init filters and functions */
     InitHdlrFuncsFromTable( GVarFuncs );
 
-    /* return success                                                      */
+    /* return success */
     return 0;
 }
 
@@ -51,6 +81,7 @@ static Int InitKernel( StructInitInfo *module )
 */
 static Int InitLibrary( StructInitInfo *module )
 {
+
     /* init filters and functions */
     InitGVarFuncsFromTable( GVarFuncs );
 
@@ -78,5 +109,5 @@ static StructInitInfo module = {
 
 StructInitInfo * Init__Dynamic ( void )
 {
-  return &module;
+    return &module;
 }

@@ -32,7 +32,7 @@ Persons := [
   ),
 ],
 
-PackageWWWHome := "http://gap-packages.github.io/RegisterPackageTNUMDemo/",
+PackageWWWHome := "https://gap-packages.github.io/RegisterPackageTNUMDemo/",
 
 ArchiveURL     := Concatenation("https://github.com/gap-packages/RegisterPackageTNUMDemo/",
                                 "releases/download/v", ~.Version,

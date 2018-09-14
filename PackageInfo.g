@@ -1,17 +1,35 @@
-#############################################################################
-##  
-##  Demo PackageInfo.g for the GitHubPagesForGAP
-##
-
+#
+# RegisterPackageTNUMDemo: Demo for RegisterPackageTNUM functionality
+#
+# This file contains package meta data. For additional information on
+# the meaning and correct usage of these fields, please consult the
+# manual of the "Example" package as well as the comments in its
+# PackageInfo.g file.
+#
 SetPackageInfo( rec(
 
-PackageName := "GitHubPagesForGAP",
-
-Subtitle := "A GitHub Pages generator for GAP packages",
+PackageName := "RegisterPackageTNUMDemo",
+Subtitle := "Demo for RegisterPackageTNUM functionality",
 Version := "0.2",
-Date := "04/02/2017", # dd/mm/yyyy format
+Date := "14/09/2018", # dd/mm/yyyy format
 
 Persons := [
+  rec(
+    LastName      := "Pfeiffer",
+    FirstNames    := "Markus",
+    IsAuthor      := true,
+    IsMaintainer  := true,
+    Email         := "markus.pfeiffer@st-andrews.ac.uk",
+    WWWHome       := "http://www.morphism.de/~markusp",
+    PostalAddress := Concatenation(
+                       "School of Computer Science\n",
+                       "University of St Andrews\n",
+                       "Jack Cole Building, North Haugh\n",
+                       "St Andrews, Fife, KY16 9SX\n",
+                       "United Kingdom" ),
+    Place         := "St Andrews",
+    Institution   := "University of St Andrews"
+  ),
   rec(
     LastName      := "Horn",
     FirstNames    := "Max",
@@ -26,76 +44,60 @@ Persons := [
                        "Arndtstraße 2\n",
                        "35392 Gießen\n",
                        "Germany" ),
-    Place         := "Gießen",
+    Place         := "Gießen, Germany",
     Institution   := "Justus-Liebig-Universität Gießen"
-  ),
-
-  rec(
-    LastName      := "Thor",
-    FirstNames    := "A. U.",
-    IsAuthor      := true,
-    IsMaintainer  := false,
-    #Email         := "author@example.com",
-  ),
-
-  rec(
-    LastName      := "Itor",
-    FirstNames    := "Jan",
-    IsAuthor      := false,
-    IsMaintainer  := true,
-    #Email         := "janitor@example.com",
   ),
 ],
 
-Status := "other",
+PackageWWWHome := "https://gap-packages.github.io/RegisterPackageTNUMDemo/",
 
-# The following are not strictly necessary in your own PackageInfo.g
-# (in the sense that update.g only looks at the usual fields
-# like PackageWWWHome, ArchiveURL etc.). But they are convenient
-# if you use exactly the scheme for your package website that we propose.
-GithubUser := "gap-system",
-GithubRepository := ~.PackageName,
-GithubWWW := Concatenation("https://github.com/", ~.GithubUser, "/", ~.GithubRepository),
-
-PackageWWWHome := Concatenation("https://", ~.GithubUser, ".github.io/", ~.GithubRepository, "/"),
+ArchiveURL     := Concatenation("https://github.com/gap-packages/RegisterPackageTNUMDemo/",
+                                "releases/download/v", ~.Version,
+                                "/RegisterPackageTNUMDemo-", ~.Version),
 README_URL     := Concatenation( ~.PackageWWWHome, "README.md" ),
 PackageInfoURL := Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
-# The following assumes you are using the Github releases system. If not, adjust
-# it accordingly.
-ArchiveURL     := Concatenation(~.GithubWWW,
-                    "/releases/download/v", ~.Version, "/",
-                    ~.GithubRepository, "-", ~.Version),
+SourceRepository := rec( 
+  Type := "git", 
+  URL := "https://github.com/gap-packages/RegisterPackageTNUMDemo"
+),
+IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
+ArchiveFormats := ".tar.gz",
 
-ArchiveFormats := ".tar.gz .tar.bz2",
+##  Status information. Currently the following cases are recognized:
+##    "accepted"      for successfully refereed packages
+##    "submitted"     for packages submitted for the refereeing
+##    "deposited"     for packages for which the GAP developers agreed
+##                    to distribute them with the core GAP system
+##    "dev"           for development versions of packages
+##    "other"         for all other packages
+##
+Status := "dev",
 
-AbstractHTML := 
-  "This is a pseudo package that contains no actual\
-  <span class=\"pkgname\">GAP</span> code. Instead, it is a template for other\
-  GAP packages that allows to quickly setup GitHub Pages.",
+AbstractHTML   :=  "",
 
 PackageDoc := rec(
-  BookName  := "GitHubPagesForGAP",
+  BookName  := "RegisterPackageTNUMDemo",
   ArchiveURLSubset := ["doc"],
   HTMLStart := "doc/chap0.html",
   PDFFile   := "doc/manual.pdf",
   SixFile   := "doc/manual.six",
-  LongTitle := "A GitHub Pages generator for GAP packages",
+  LongTitle := "Demo for RegisterPackageTNUM functionality",
 ),
 
-# The following dependencies are fake and for testing / demo purposes
 Dependencies := rec(
-  GAP := ">=4.8.1",
-  NeededOtherPackages := [
-    ["GAPDoc", ">= 1.2"],
-    ["IO", ">= 4.1"],
-  ],
-  SuggestedOtherPackages := [["orb", ">= 4.2"]],
-  ExternalConditions := []
+  GAP := ">= 4.9",
+  NeededOtherPackages := [ ],
+  SuggestedOtherPackages := [ ],
+  ExternalConditions := [ ],
 ),
 
-AvailabilityTest := ReturnTrue,
+AvailabilityTest := function()
+        return true;
+    end,
 
-Keywords := ["GitHub Pages", "GAP"]
+TestFile := "tst/testall.g",
+
+#Keywords := [ "TODO" ],
 
 ));
 

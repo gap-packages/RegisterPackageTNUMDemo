@@ -1,48 +1,65 @@
-/*
- * RegisterPackageTNUMDemo: Demo for RegisterPackageTNUM functionality
- */
+//
+// RegisterPackageTNUMDemo: Demo for RegisterPackageTNUM functionality
+//
 
-#include "src/compiled.h"          /* GAP headers */
+#include "src/compiled.h"          // GAP headers
 
-Int T_DEMO;
+// storage for the TNUM we will register
+static Int T_DEMO;
 
-/* This type is imported from the GAP level, all wrapped objects
-   will have the same type
- */
-Obj TYPE_DEMO;
+// This type is imported from the GAP level, all wrapped objects will have the same type
+static Obj TYPE_DEMO;
+
+typedef struct {
+    Obj capacity;
+    Obj used;
+    void * data;
+} DemoObject;
+
+
 Obj TypeDemoObj(Obj o)
 {
     return TYPE_DEMO;
 }
 
+DemoObject * DEMO_OBJ(Obj o)
+{
+    return (DemoObject *)ADDR_OBJ(o);
+}
+
+const DemoObject * CONST_DEMO_OBJ(Obj o)
+{
+    return (const DemoObject *)CONST_ADDR_OBJ(o);
+}
+
 inline void SET_DEMO_CAPACITY(Obj o, Obj c)
 {
-    ADDR_OBJ(o)[0] = c;
+    DEMO_OBJ(o)->capacity = c;
 }
 
 inline Obj GET_DEMO_CAPACITY(Obj o)
 {
-    return ADDR_OBJ(o)[0];
+    return CONST_DEMO_OBJ(o)->capacity;
 }
 
 inline void SET_DEMO_USED(Obj o, Obj u)
 {
-    ADDR_OBJ(o)[1] = u;
+    DEMO_OBJ(o)->used = u;
 }
 
 inline Obj GET_DEMO_USED(Obj o)
 {
-    return ADDR_OBJ(o)[1];
+    return CONST_DEMO_OBJ(o)->used;
 }
 
 inline void SET_DEMO_OBJ(Obj o, void *b)
 {
-    ADDR_OBJ(o)[2] = b;
+    DEMO_OBJ(o)->data = b;
 }
 
 inline void *GET_DEMO_OBJ(Obj o)
 {
-    return ADDR_OBJ(o)[2];
+    return CONST_DEMO_OBJ(o)->data;
 }
 
 
@@ -60,51 +77,46 @@ void FreeDemoObj(Obj o)
     free(GET_DEMO_OBJ(o));
 }
 
-Obj NewDemoObj(Obj self, Obj c)
+Obj FuncNewDemoObj(Obj self, Obj c)
 {
     Obj o;
 
-    if(!IS_INTOBJ(c)) {
-        ErrorQuit( "Usage: NewDemoObj(integer)", 0L, 0L);
+    if (!IS_POS_INTOBJ(c)) {
+        ErrorQuit("NewDemoObj: <capacity> must a positive small integer", 0, 0);
     }
-    o = NewBag(T_DEMO, 2*sizeof(Obj));
 
+    o = NewBag(T_DEMO, sizeof(DemoObject));
+
+    DemoObject *data = (DemoObject *)ADDR_OBJ(o);
     SET_DEMO_CAPACITY(o, c);
-    SET_DEMO_USED(o, INTOBJ_INT(0u));
+    SET_DEMO_USED(o, False);
     SET_DEMO_OBJ(o, malloc(INT_INTOBJ(c)));
 
     return o;
 }
 
-Obj DemoObjCapacity(Obj self, Obj o)
+Obj FuncDemoObjCapacity(Obj self, Obj o)
 {
     return GET_DEMO_CAPACITY(o);
 }
 
-Obj DemoObjUsed(Obj self, Obj o)
+Obj FuncDemoObjUsed(Obj self, Obj o)
 {
     return GET_DEMO_USED(o);
 }
 
-typedef Obj (* GVarFunc)(/*arguments*/);
-
-#define GVAR_FUNC_TABLE_ENTRY(srcfile, name, nparam, params) \
-  {#name, nparam, \
-   params, \
-   (GVarFunc)name, \
-   srcfile ":Func" #name }
-
 // Table of functions to export
 static StructGVarFunc GVarFuncs [] = {
-    GVAR_FUNC_TABLE_ENTRY("RegisterPackageTNUMDemo.c", NewDemoObj, 1, ""),
-    GVAR_FUNC_TABLE_ENTRY("RegisterPackageTNUMDemo.c", DemoObjCapacity, 1, "demoobj"),
-    GVAR_FUNC_TABLE_ENTRY("RegisterPackageTNUMDemo.c", DemoObjUsed, 1, "demoobj"),
+    GVAR_FUNC(NewDemoObj, 1, "capacity"),
+    GVAR_FUNC(DemoObjCapacity, 1, "demoobj"),
+    GVAR_FUNC(DemoObjUsed, 1, "demoobj"),
 
   { 0 } /* Finish with an empty entry */
 
 };
 
-/******************************************************************************
+/****************************************************************************
+**
 *F  InitKernel( <module> )  . . . . . . . . initialise kernel data structures
 */
 static Int InitKernel( StructInitInfo *module )
@@ -116,27 +128,23 @@ static Int InitKernel( StructInitInfo *module )
     InitFreeFuncBag(T_DEMO, FreeDemoObj);
     InitMarkFuncBags(T_DEMO, MarkDemoObj);
 
-    /* init filters and functions */
     InitHdlrFuncsFromTable( GVarFuncs );
 
-    /* return success */
     return 0;
 }
 
-/******************************************************************************
+/****************************************************************************
+**
 *F  InitLibrary( <module> ) . . . . . . .  initialise library data structures
 */
 static Int InitLibrary( StructInitInfo *module )
 {
-
-    /* init filters and functions */
     InitGVarFuncsFromTable( GVarFuncs );
-
-    /* return success                                                      */
     return 0;
 }
 
-/******************************************************************************
+/****************************************************************************
+**
 *F  InitInfopl()  . . . . . . . . . . . . . . . . . table of init functions
 */
 static StructInitInfo module = {

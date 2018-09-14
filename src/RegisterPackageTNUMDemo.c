@@ -51,12 +51,8 @@ inline void *GET_DEMO_OBJ(Obj o)
  */
 void MarkDemoObj(Bag o)
 {
-    MARK_BAG(GET_DEMO_CAPACITY(o));
-    MARK_BAG(GET_DEMO_USED(o));
-}
-
-void SweepDemoObj(Bag *src, Bag *dst, UInt len)
-{
+    MarkBag(GET_DEMO_CAPACITY(o));
+    MarkBag(GET_DEMO_USED(o));
 }
 
 void FreeDemoObj(Obj o)
@@ -118,9 +114,7 @@ static Int InitKernel( StructInitInfo *module )
     T_DEMO = RegisterPackageTNUM("DemoTNUM", TypeDemoObj);
 
     InitFreeFuncBag(T_DEMO, FreeDemoObj);
-
     InitMarkFuncBags(T_DEMO, MarkDemoObj);
-    InitSweepFuncBags(T_DEMO, SweepDemoObj);
 
     /* init filters and functions */
     InitHdlrFuncsFromTable( GVarFuncs );

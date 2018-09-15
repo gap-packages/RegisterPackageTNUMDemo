@@ -11,6 +11,10 @@ static Int T_DEMO;
 // same type
 static Obj TYPE_DEMO;
 
+static UInt demoObjectsAllocated;
+static UInt demoObjectsFreed;
+
+
 typedef struct {
     Obj    capacity;
     Obj    used;
@@ -75,7 +79,10 @@ void MarkDemoObj(Bag o)
 
 void FreeDemoObj(Obj o)
 {
-    free(GET_DEMO_OBJ(o));
+    demoObjectsFreed++;
+    // here we could free resources: e.g. free memory allocations,
+    // close file descriptors, reap child processes, etc.
+    //free(GET_DEMO_OBJ(o));
 }
 
 Obj FuncNewDemoObj(Obj self, Obj c)
@@ -88,11 +95,12 @@ Obj FuncNewDemoObj(Obj self, Obj c)
     }
 
     o = NewBag(T_DEMO, sizeof(DemoObject));
+    demoObjectsAllocated++;
 
     DemoObject * data = (DemoObject *)ADDR_OBJ(o);
     SET_DEMO_CAPACITY(o, c);
-    SET_DEMO_USED(o, False);
-    SET_DEMO_OBJ(o, malloc(INT_INTOBJ(c)));
+    SET_DEMO_USED(o, INTOBJ_INT(0));
+    //SET_DEMO_OBJ(o, malloc(INT_INTOBJ(c)));
 
     return o;
 }
@@ -107,11 +115,24 @@ Obj FuncDemoObjUsed(Obj self, Obj o)
     return GET_DEMO_USED(o);
 }
 
+Obj FuncDemoObjectsAllocated(Obj self)
+{
+    return ObjInt_UInt(demoObjectsAllocated);
+}
+
+Obj FuncDemoObjectsFreed(Obj self)
+{
+    return ObjInt_UInt(demoObjectsFreed);
+}
+
 // Table of functions to export
 static StructGVarFunc GVarFuncs[] = {
     GVAR_FUNC(NewDemoObj, 1, "capacity"),
     GVAR_FUNC(DemoObjCapacity, 1, "demoobj"),
     GVAR_FUNC(DemoObjUsed, 1, "demoobj"),
+
+    GVAR_FUNC(DemoObjectsAllocated, 0, ""),
+    GVAR_FUNC(DemoObjectsFreed, 0, ""),
 
     { 0 } /* Finish with an empty entry */
 

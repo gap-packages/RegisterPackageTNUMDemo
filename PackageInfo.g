@@ -20,7 +20,7 @@ Persons := [
     IsAuthor      := true,
     IsMaintainer  := true,
     Email         := "markus.pfeiffer@st-andrews.ac.uk",
-    WWWHome       := "http://www.morphism.de/~markusp",
+    WWWHome       := "https://www.morphism.de/~markusp",
     PostalAddress := Concatenation(
                        "School of Computer Science\n",
                        "University of St Andrews\n",
@@ -36,7 +36,7 @@ Persons := [
     IsAuthor      := true,
     IsMaintainer  := true,
     Email         := "max.horn@math.uni-giessen.de",
-    WWWHome       := "http://www.quendi.de/math",
+    WWWHome       := "https://www.quendi.de/math",
     PostalAddress := Concatenation(
                        "AG Algebra\n",
                        "Mathematisches Institut\n",

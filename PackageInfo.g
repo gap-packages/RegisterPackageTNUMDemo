@@ -12,6 +12,7 @@ PackageName := "RegisterPackageTNUMDemo",
 Subtitle := "Demo for RegisterPackageTNUM functionality",
 Version := "0.2",
 Date := "14/09/2018", # dd/mm/yyyy format
+License := "GPL-2.0-or-later",
 
 Persons := [
   rec(

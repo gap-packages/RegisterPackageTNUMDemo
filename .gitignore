@@ -21,7 +21,7 @@
 /doc/*.xml
 
 /bin/
-/obj/
+/gen/
 /Makefile
 
 /tmp/

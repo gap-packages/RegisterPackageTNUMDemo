@@ -22,47 +22,47 @@ typedef struct {
 } DemoObject;
 
 
-Obj TypeDemoObj(Obj o)
+static Obj TypeDemoObj(Obj o)
 {
     return TYPE_DEMO;
 }
 
-DemoObject * DEMO_OBJ(Obj o)
+static DemoObject * DEMO_OBJ(Obj o)
 {
     return (DemoObject *)ADDR_OBJ(o);
 }
 
-const DemoObject * CONST_DEMO_OBJ(Obj o)
+static const DemoObject * CONST_DEMO_OBJ(Obj o)
 {
     return (const DemoObject *)CONST_ADDR_OBJ(o);
 }
 
-inline void SET_DEMO_CAPACITY(Obj o, Obj c)
+static inline void SET_DEMO_CAPACITY(Obj o, Obj c)
 {
     DEMO_OBJ(o)->capacity = c;
 }
 
-inline Obj GET_DEMO_CAPACITY(Obj o)
+static inline Obj GET_DEMO_CAPACITY(Obj o)
 {
     return CONST_DEMO_OBJ(o)->capacity;
 }
 
-inline void SET_DEMO_USED(Obj o, Obj u)
+static inline void SET_DEMO_USED(Obj o, Obj u)
 {
     DEMO_OBJ(o)->used = u;
 }
 
-inline Obj GET_DEMO_USED(Obj o)
+static inline Obj GET_DEMO_USED(Obj o)
 {
     return CONST_DEMO_OBJ(o)->used;
 }
 
-inline void SET_DEMO_OBJ(Obj o, void * b)
+static inline void SET_DEMO_OBJ(Obj o, void * b)
 {
     DEMO_OBJ(o)->data = b;
 }
 
-inline void * GET_DEMO_OBJ(Obj o)
+static inline void * GET_DEMO_OBJ(Obj o)
 {
     return CONST_DEMO_OBJ(o)->data;
 }
@@ -71,13 +71,13 @@ inline void * GET_DEMO_OBJ(Obj o)
 /*
  * Garbage collector
  */
-void MarkDemoObj(Bag o)
+static void MarkDemoObj(Bag o)
 {
     MarkBag(GET_DEMO_CAPACITY(o));
     MarkBag(GET_DEMO_USED(o));
 }
 
-void FreeDemoObj(Obj o)
+static void FreeDemoObj(Obj o)
 {
     demoObjectsFreed++;
     // here we could free resources: e.g. free memory allocations,
@@ -85,7 +85,7 @@ void FreeDemoObj(Obj o)
     //free(GET_DEMO_OBJ(o));
 }
 
-Obj FuncNewDemoObj(Obj self, Obj c)
+static Obj FuncNewDemoObj(Obj self, Obj c)
 {
     Obj o;
 
@@ -105,22 +105,22 @@ Obj FuncNewDemoObj(Obj self, Obj c)
     return o;
 }
 
-Obj FuncDemoObjCapacity(Obj self, Obj o)
+static Obj FuncDemoObjCapacity(Obj self, Obj o)
 {
     return GET_DEMO_CAPACITY(o);
 }
 
-Obj FuncDemoObjUsed(Obj self, Obj o)
+static Obj FuncDemoObjUsed(Obj self, Obj o)
 {
     return GET_DEMO_USED(o);
 }
 
-Obj FuncDemoObjectsAllocated(Obj self)
+static Obj FuncDemoObjectsAllocated(Obj self)
 {
     return ObjInt_UInt(demoObjectsAllocated);
 }
 
-Obj FuncDemoObjectsFreed(Obj self)
+static Obj FuncDemoObjectsFreed(Obj self)
 {
     return ObjInt_UInt(demoObjectsFreed);
 }

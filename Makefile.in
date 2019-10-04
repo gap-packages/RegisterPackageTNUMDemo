@@ -1,14 +1,9 @@
 #
-# This requires GNU make (just as the main GAP does).
+# Makefile rules for the RegisterPackageTNUMDemo package
 #
-MODULE_NAME = RegisterPackageTNUMDemo
+KEXT_NAME = RegisterPackageTNUMDemo
+KEXT_SOURCES = src/RegisterPackageTNUMDemo.c
 
-SOURCES = src/RegisterPackageTNUMDemo.c
-
-########################################################################
-# Some variables that come from GAP via our configure script
-########################################################################
+# include shared GAP package build system
 GAPPATH = @GAPPATH@
-GAPARCH = @GAPARCH@
-
 include Makefile.gappkg

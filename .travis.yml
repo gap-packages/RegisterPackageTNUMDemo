@@ -11,6 +11,15 @@ addons:
 matrix:
   include:
     - env: GAPBRANCH=master
+      os: windows
+      install:
+        - printenv
+        - ls
+        - ls /
+        - choco install cygwin
+        - setup.exe --wait --quiet-mode --packages  automake,autoconf,gcc-g++,make,libgmp-devel,wget,zlib-devel
+      
+    - env: GAPBRANCH=master
 
 branches:
   only:

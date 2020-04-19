@@ -2,7 +2,7 @@
 // RegisterPackageTNUMDemo: Demo for RegisterPackageTNUM functionality
 //
 
-#include "src/compiled.h"    // GAP headers
+#include "compiled.h" // GAP headers
 
 // storage for the TNUM we will register
 static Int T_DEMO;

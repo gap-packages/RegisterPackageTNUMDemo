@@ -1,5 +1,5 @@
 name: RegisterPackageTNUMDemo
-version: 0.2
+version: "0.2"
 date: 2018-09-14
 description: |
     Demo for RegisterPackageTNUM functionality
@@ -45,11 +45,15 @@ citeas: |
 bibtex: |
     @misc{ RegisterPackageTNUMDemo0.2,
       author =           {Pfeiffer, M. and Horn, M.},
-      title =            {{RegisterPackageTNUMDemo}, Demo for RegisterPackageTNUM functionality, {V}ersion 0.2},
+      title =            {{RegisterPackageTNUMDemo},           Demo          for
+                          RegisterPackageTNUM functionality, {V}ersion 0.2},
       month =            {Sep},
       year =             {2018},
       note =             {GAP package},
-      howpublished =     {\href {https://gap-packages.github.io/RegisterPackageTNUMDemo/} {\texttt{https://gap-packages.github.io/}\discretionary {}{}{}\texttt{RegisterPackageTNUMDemo/}}},
+      howpublished =     {\href
+                          {https://gap-packages.github.io/RegisterPackageTNUMDemo/}
+                          {\texttt{https://gap-packages.github.io/}\discretionary
+                          {}{}{}\texttt{RegisterPackageTNUMDemo/}}},
       printedkey =       {PH18}
     }
 

@@ -71,11 +71,22 @@ static inline void * GET_DEMO_OBJ(Obj o)
 /*
  * Garbage collector
  */
+
+#ifdef GAP_MARK_FUNC_WITH_REF
+// for GAP >= 4.13.0
+static void MarkDemoObj(Bag o, void * ref)
+{
+    MarkBag(GET_DEMO_CAPACITY(o), ref);
+    MarkBag(GET_DEMO_USED(o), ref);
+}
+#else
+// for GAP <= 4.12.x
 static void MarkDemoObj(Bag o)
 {
     MarkBag(GET_DEMO_CAPACITY(o));
     MarkBag(GET_DEMO_USED(o));
 }
+#endif
 
 static void FreeDemoObj(Obj o)
 {

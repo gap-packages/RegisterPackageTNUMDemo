@@ -10,17 +10,18 @@ SetPackageInfo( rec(
 
 PackageName := "RegisterPackageTNUMDemo",
 Subtitle := "Demo for RegisterPackageTNUM functionality",
-Version := "0.2",
-Date := "14/09/2018", # dd/mm/yyyy format
+Version := "0.3",
+Date := "13/02/2025", # dd/mm/yyyy format
+License := "GPL-2.0-or-later",
 
 Persons := [
   rec(
     LastName      := "Pfeiffer",
     FirstNames    := "Markus",
     IsAuthor      := true,
-    IsMaintainer  := true,
+    IsMaintainer  := false,
     Email         := "markus.pfeiffer@st-andrews.ac.uk",
-    WWWHome       := "http://www.morphism.de/~markusp",
+    WWWHome       := "https://www.morphism.de/~markusp",
     PostalAddress := Concatenation(
                        "School of Computer Science\n",
                        "University of St Andrews\n",
@@ -35,17 +36,16 @@ Persons := [
     FirstNames    := "Max",
     IsAuthor      := true,
     IsMaintainer  := true,
-    Email         := "max.horn@math.uni-giessen.de",
-    WWWHome       := "http://www.quendi.de/math",
+    Email         := "mhorn@rptu.de",
+    WWWHome       := "https://www.quendi.de/math",
     PostalAddress := Concatenation(
-                       "AG Algebra\n",
-                       "Mathematisches Institut\n",
-                       "Justus-Liebig-Universität Gießen\n",
-                       "Arndtstraße 2\n",
-                       "35392 Gießen\n",
+                       "Fachbereich Mathematik\n",
+                       "RPTU Kaiserslautern-Landau\n",
+                       "Gottlieb-Daimler-Straße 48\n",
+                       "67663 Kaiserslautern\n",
                        "Germany" ),
-    Place         := "Gießen, Germany",
-    Institution   := "Justus-Liebig-Universität Gießen"
+    Place         := "Kaiserslautern, Germany",
+    Institution   := "RPTU Kaiserslautern-Landau"
   ),
 ],
 
@@ -78,7 +78,7 @@ AbstractHTML   :=  "",
 PackageDoc := rec(
   BookName  := "RegisterPackageTNUMDemo",
   ArchiveURLSubset := ["doc"],
-  HTMLStart := "doc/chap0.html",
+  HTMLStart := "doc/chap0_mj.html",
   PDFFile   := "doc/manual.pdf",
   SixFile   := "doc/manual.six",
   LongTitle := "Demo for RegisterPackageTNUM functionality",

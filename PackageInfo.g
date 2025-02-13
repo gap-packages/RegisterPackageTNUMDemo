@@ -10,8 +10,8 @@ SetPackageInfo( rec(
 
 PackageName := "RegisterPackageTNUMDemo",
 Subtitle := "Demo for RegisterPackageTNUM functionality",
-Version := "0.2",
-Date := "14/09/2018", # dd/mm/yyyy format
+Version := "0.3",
+Date := "13/02/2025", # dd/mm/yyyy format
 License := "GPL-2.0-or-later",
 
 Persons := [
@@ -19,7 +19,7 @@ Persons := [
     LastName      := "Pfeiffer",
     FirstNames    := "Markus",
     IsAuthor      := true,
-    IsMaintainer  := true,
+    IsMaintainer  := false,
     Email         := "markus.pfeiffer@st-andrews.ac.uk",
     WWWHome       := "https://www.morphism.de/~markusp",
     PostalAddress := Concatenation(

@@ -85,15 +85,21 @@ PackageDoc := rec(
 ),
 
 Dependencies := rec(
-  GAP := ">= 4.9",
+  GAP := ">= 4.12",
   NeededOtherPackages := [ ],
   SuggestedOtherPackages := [ ],
   ExternalConditions := [ ],
 ),
 
 AvailabilityTest := function()
-        return true;
-    end,
+  if IsKernelExtensionAvailable("RegisterPackageTNUMDemo") = false then
+    LogPackageLoadingMessage( PACKAGE_WARNING,
+            [ "kernel functions for RegisterPackageTNUMDemo are not available." ] );
+    return false;
+  else
+    return true;
+  fi;
+end,
 
 TestFile := "tst/testall.g",
 

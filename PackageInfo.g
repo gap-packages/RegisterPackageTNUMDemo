@@ -10,8 +10,8 @@ SetPackageInfo( rec(
 
 PackageName := "RegisterPackageTNUMDemo",
 Subtitle := "Demo for RegisterPackageTNUM functionality",
-Version := "0.3",
-Date := "13/02/2025", # dd/mm/yyyy format
+Version := "0.4",
+Date := "28/02/2025", # dd/mm/yyyy format
 License := "GPL-2.0-or-later",
 
 Persons := [
@@ -85,15 +85,21 @@ PackageDoc := rec(
 ),
 
 Dependencies := rec(
-  GAP := ">= 4.9",
+  GAP := ">= 4.12",
   NeededOtherPackages := [ ],
   SuggestedOtherPackages := [ ],
   ExternalConditions := [ ],
 ),
 
 AvailabilityTest := function()
-        return true;
-    end,
+  if IsKernelExtensionAvailable("RegisterPackageTNUMDemo") = false then
+    LogPackageLoadingMessage( PACKAGE_WARNING,
+            [ "kernel functions for RegisterPackageTNUMDemo are not available." ] );
+    return false;
+  else
+    return true;
+  fi;
+end,
 
 TestFile := "tst/testall.g",
 

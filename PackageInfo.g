@@ -10,8 +10,8 @@ SetPackageInfo( rec(
 
 PackageName := "RegisterPackageTNUMDemo",
 Subtitle := "Demo for RegisterPackageTNUM functionality",
-Version := "0.3",
-Date := "13/02/2025", # dd/mm/yyyy format
+Version := "0.4",
+Date := "28/02/2025", # dd/mm/yyyy format
 License := "GPL-2.0-or-later",
 
 Persons := [

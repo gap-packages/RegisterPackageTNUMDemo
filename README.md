@@ -1,4 +1,4 @@
-[![Build Status](https://github.com/gap-packages/RegisterPackageTNUMDemo/workflows/CI/badge.svg?branch=master)](https://github.com/gap-packages/RegisterPackageTNUMDemo/actions?query=workflow%3ACI+branch%3Amaster)
+[![CI](https://github.com/gap-packages/RegisterPackageTNUMDemo/actions/workflows/CI.yml/badge.svg)](https://github.com/gap-packages/RegisterPackageTNUMDemo/actions/workflows/CI.yml)
 [![Code Coverage](https://codecov.io/github/gap-packages/RegisterPackageTNUMDemo/coverage.svg?branch=master&token=)](https://codecov.io/gh/gap-packages/RegisterPackageTNUMDemo)
 
 # RegisterPackageTNUMDemo
